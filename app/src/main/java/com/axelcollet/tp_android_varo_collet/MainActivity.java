@@ -4,9 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
-import android.view.View.OnClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TupleVocabulaire tv1 = new TupleVocabulaire("work","travail");
+    private TupleVocabulaire tv2 = new TupleVocabulaire("play","jouer");
+    private TupleVocabulaire tv3 = new TupleVocabulaire("Hello","Bonjour");
+    private TupleVocabulaire tv4 = new TupleVocabulaire("credit card","carte de crédit");
+
+    List<TupleVocabulaire> listTV = new ArrayList<TupleVocabulaire>();
+    // TODO: 15.11.2017  faire fonctionner cette liste.... 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-//// TODO: 15.11.2017 faire classe carton
-//// // TODO: 15.11.2017 faire classe qui contient plusieurs carton genre une liste des ids
-//// TODO: 15.11.2017 faire activity menu
-////// TODO: 15.11.2017 passer la liste de carton choisi dans le menu a cette activité
+// TODO: 15.11.2017 faire classe carton
+// TODO: 15.11.2017 faire classe qui contient plusieurs carton genre une liste des ids
+// TODO: 15.11.2017 faire activity menu
+// TODO: 15.11.2017 passer la liste de carton choisi dans le menu a cette activité
 // TODO: 15.11.2017 renomer cette activité ?!?
 // TODO: 15.11.2017  stats réussite / echec d'un carton
