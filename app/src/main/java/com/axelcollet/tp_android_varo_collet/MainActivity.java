@@ -3,6 +3,7 @@ package com.axelcollet.tp_android_varo_collet;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Delayed;
 
+
+
+// If you want you can add other log definition for info, warning etc
 public class MainActivity extends AppCompatActivity {
 
     private TupleVocabulaire tv1 = new TupleVocabulaire("work","travail");
@@ -33,30 +37,20 @@ public class MainActivity extends AppCompatActivity {
         tvList.add(tv2);
         tvList.add(tv3);
         tvList.add(tv4);
-        final Button button_validate = (Button)findViewById(R.id.button);
+        final Button button_validate = (Button)findViewById(R.id.button_validate);
         final TextView viewMot = (TextView)findViewById(R.id.textView);
         final EditText viewReponse = (EditText)findViewById(R.id.editText);
+        System.out.print("loool11");
+        Log.d("creation","on creat exectuted");
 
 
         tvActuel = tvList.get(posList);
         viewMot.setText(tvActuel.Mot);
         button_validate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if( button_validate.getText() =="Validate"){
-                    button_validate.setText("Next");
-                    if (tvActuel.VerifieTuble(tvActuel.Mot, viewReponse.getText().toString())) {
-                        viewReponse.setBackgroundColor(Color.GREEN);
-                    }else{
-                        viewReponse.setBackgroundColor(Color.RED);
-                    }
-                }else{
-                    viewReponse.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                    button_validate.setText("Validate");
-                    posList++;
-                    tvActuel = tvList.get(posList);
-                    viewMot.setText(tvActuel.Mot);
-                }
+                System.out.println("\n\nTEST\n\n");
+                Log.d("btn","le bouton a ete appuyer");
+                button_validate.setText("Next");
             }
         });
 
