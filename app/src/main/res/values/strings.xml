@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TP_Android_Varo_Collet</string>
+    <string name="validate">Validate</string>
+    <string name="next">Next</string>
 </resources>

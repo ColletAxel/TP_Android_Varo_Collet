@@ -1,5 +1,6 @@
 package com.axelcollet.tp_android_varo_collet;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,45 +27,75 @@ public class MainActivity extends AppCompatActivity {
     private int posList = 0;
     private TupleVocabulaire tvActuel;
 
-    // TODO: 15.11.2017  faire fonctionner cette liste....
-    List<TupleVocabulaire> tvList = new ArrayList<TupleVocabulaire>(10);
+    private List<TupleVocabulaire> tvList = new ArrayList<TupleVocabulaire>(10);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        final Activity mActivity = this;
+
+        final Button buttonValidate = (Button) findViewById(R.id.button_validate);
+
+
+
         tvList.add(tv1);
         tvList.add(tv2);
         tvList.add(tv3);
         tvList.add(tv4);
-        final Button button_validate = (Button)findViewById(R.id.button_validate);
-        final TextView viewMot = (TextView)findViewById(R.id.textView);
-        final EditText viewReponse = (EditText)findViewById(R.id.editText);
-        System.out.print("loool11");
-        Log.d("creation","on creat exectuted");
-
-
         tvActuel = tvList.get(posList);
-        viewMot.setText(tvActuel.Mot);
-        button_validate.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                System.out.println("\n\nTEST\n\n");
-                Log.d("btn","le bouton a ete appuyer");
-                button_validate.setText("Next");
-            }
-        });
 
-        final Button button_menu = (Button)findViewById(R.id.button3);
-        button_validate.setOnClickListener(new View.OnClickListener() {
+        initTuble(tvActuel);
+        buttonValidate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
             public void onClick(View v) {
-                //// TODO: 15.11.2017 back  menu
+                if (buttonValidate.getText()==getResources().getString(R.string.validate)){
+                    buttonValidate.setText(getResources().getString(R.string.next));
+
+                    verifieTuple(tvActuel);
+                }else{
+                    buttonValidate.setText(getResources().getString(R.string.validate));
+
+                    tvActuel = nextMot();
+                    initTuble(tvActuel);
+                }
+
+
             }
         });
 
     }
-}
 
+    private void initTuble(TupleVocabulaire tv){
+        final TextView viewMot = (TextView)findViewById(R.id.textView);
+        final EditText viewReponse = (EditText)findViewById(R.id.editText);
+        viewReponse.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        viewMot.setText(tv.Mot);
+
+    }
+
+    private void verifieTuple (TupleVocabulaire tv){
+        final EditText viewReponse = (EditText)findViewById(R.id.editText);
+        final TextView viewMot = (TextView)findViewById(R.id.textView);
+        if (tv.VerifieTuble(viewMot.getText().toString(),viewReponse.getText().toString())){
+            viewReponse.setBackgroundColor(Color.GREEN);
+        }else{
+            viewReponse.setBackgroundColor(Color.RED);
+            viewReponse.setText(tv.MotTraduit);
+
+        }
+    }
+
+    private TupleVocabulaire nextMot(){
+        posList++;
+
+        if (!(posList< tvList.size())){
+            posList =0;
+        }
+        return tvList.get(posList);
+    }
+}
 // TODO: 15.11.2017 faire classe carton
 // TODO: 15.11.2017 faire classe qui contient plusieurs carton genre une liste des ids
 // TODO: 15.11.2017 faire activity menu

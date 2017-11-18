@@ -24,12 +24,15 @@ public class TupleVocabulaire {
     }
 
     public boolean VerifieTuble (String Mot1,String Mot2){
+
+        boolean vr;
         if (Mot1 ==this.Mot){
-            return (Mot2 == this.MotTraduit);
+            vr = Mot2 == this.MotTraduit;
         }else if (Mot2 == this.Mot){
-            return (Mot1 == this.MotTraduit);
+            vr = Mot1 == this.MotTraduit;
         }else{
-            return false;
+            vr = false;
         }
+        return vr;
     }
 }
