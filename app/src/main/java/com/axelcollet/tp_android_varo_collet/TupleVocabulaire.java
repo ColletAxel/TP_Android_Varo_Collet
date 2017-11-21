@@ -26,10 +26,10 @@ public class TupleVocabulaire {
     public boolean VerifieTuble (String Mot1,String Mot2){
 
         boolean vr;
-        if (Mot1 ==this.Mot){
-            vr = Mot2 == this.MotTraduit;
-        }else if (Mot2 == this.Mot){
-            vr = Mot1 == this.MotTraduit;
+        if (Mot1.equals(this.Mot)){
+            vr = Mot2.equals(this.MotTraduit);
+        }else if (Mot2.equals(this.Mot)){
+            vr = Mot1.equals(this.MotTraduit);
         }else{
             vr = false;
         }
