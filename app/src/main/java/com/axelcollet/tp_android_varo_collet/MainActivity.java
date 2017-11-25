@@ -32,21 +32,16 @@ public class MainActivity extends FragmentActivity {
         //fragVoc = (FragmentVoc)getSupportFragmentManager().findFragmentById(R.id.fragment_fragment_voc);
 
         // Create an instance of ExampleFragment
-        FragmentVoc fragVoc = new FragmentVoc();
 
         // In case this activity was started with special instructions from an Intent,
         // pass the Intent's extras to the fragment as arguments
-        fragVoc.setArguments(getIntent().getExtras());
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_fragment_voc,FragmentVoc.newInstance("lool","lool")).commit();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_fragment_voc,new VocabularyFrament()).commit();
 
 
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri){
-        //you can leave it empty
-    }
 
 }
 // TODO: 15.11.2017 faire classe carton
