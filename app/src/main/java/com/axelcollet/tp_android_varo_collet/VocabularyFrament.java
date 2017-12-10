@@ -47,7 +47,7 @@ public class VocabularyFrament extends Fragment {
 
 
 
-        View rootView = inflater.inflate(R.layout.vocabulary_frament_layout, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_vocabulary_game, container, false);
         final Button buttonValidate = rootView.findViewById(R.id.button_validate);
         viewReponse = rootView.findViewById(R.id.editText);
         viewMot = rootView.findViewById(R.id.textView);
@@ -68,15 +68,12 @@ public class VocabularyFrament extends Fragment {
                 }
             }
         });
-
         return rootView;
     }
 
     private void initTuble(TupleVocabulaire tv){
-
         viewReponse.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         viewMot.setText("\n\n\n" + tv.Mot);
-
     }
 
     private void verifieTuple (TupleVocabulaire tv){
@@ -85,13 +82,11 @@ public class VocabularyFrament extends Fragment {
         }else{
             viewReponse.setBackgroundColor(Color.RED);
             viewReponse.setText(tv.MotTraduit);
-
         }
     }
 
     private TupleVocabulaire nextMot(){
         posList++;
-
         if (!(posList< tvList.size())){
             posList =0;
         }
