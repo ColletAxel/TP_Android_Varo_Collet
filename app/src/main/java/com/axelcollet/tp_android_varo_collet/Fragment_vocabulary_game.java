@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VocabularyFrament extends Fragment {
+public class Fragment_vocabulary_game extends Fragment {
     private TupleVocabulaire tv1 = new TupleVocabulaire("work","travail");
     private TupleVocabulaire tv2 = new TupleVocabulaire("play","jouer");
     private TupleVocabulaire tv3 = new TupleVocabulaire("Hello","Bonjour");
@@ -31,7 +31,7 @@ public class VocabularyFrament extends Fragment {
     private List<TupleVocabulaire> tvList = new ArrayList<TupleVocabulaire>(10);
 
     private TextView viewMot;
-    public VocabularyFrament() {
+    public Fragment_vocabulary_game() {
         // Required empty public constructor
     }
 

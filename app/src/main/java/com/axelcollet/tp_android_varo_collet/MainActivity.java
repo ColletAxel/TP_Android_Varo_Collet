@@ -1,35 +1,26 @@
 package com.axelcollet.tp_android_varo_collet;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-
-import android.net.Uri;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Delayed;
-
 
 
 // If you want you can add other log definition for info, warning etc
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements Fragment_vocabulary_addcards.OnHeadlineSelectedListener{
 
     private ListView mDrawerList;
+    private DatabaseHandler db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +29,27 @@ public class MainActivity extends FragmentActivity {
 
         init_drawer();
 
+        db = new DatabaseHandler(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        ft.add(R.id.fragment_fragment_voc,new VocabularyFrament());
+        ft.add(R.id.fragment_fragment_voc,new Fragment_vocabulary_game());
         // Complete the changes added above
         ft.commit();
 
 
     }
 
+    public void onArticleSelected(String traductionFR, String traductionEN) {
+        // The user selected the headline of an article from the HeadlinesFragment
+        // Do something here to display that article
+        db.addCard(new CarteVocabulaire(traductionFR,traductionEN));
+    }
+
+    /*Initialisation du drawer. use for navigate within different fragment of activity*/
     private void init_drawer(){
         mDrawerList = (ListView) findViewById(R.id.my_drawer);
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        String[] osArray = { "Fragment1", "Fragment2", "Fragment3", "Fragment4", "Fragment5" };
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,7 +58,18 @@ public class MainActivity extends FragmentActivity {
                 Toast.makeText(MainActivity.this, "position = " + String.valueOf(position) + "/ id = " + String.valueOf(id), Toast.LENGTH_SHORT).show();
                 if(id == 0){
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_fragment_voc,new Fragment_vocabulary_list());
+                    ft.replace(R.id.fragment_fragment_voc,new Fragment_vocabulary_game());
+                    ft.commit();
+                }
+                if(id == 1){
+                    ArrayList<CarteVocabulaire> listCards = db.getAllCard();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_fragment_voc,Fragment_vocabulary_list.newInstance(listCards));
+                    ft.commit();
+                }
+                if(id == 2){
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_fragment_voc,new Fragment_vocabulary_addcards());
                     ft.commit();
                 }
             }
