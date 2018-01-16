@@ -36,21 +36,12 @@ public class Fragment_vocabulary_game extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        tvList.add(tv1);
-        tvList.add(tv2);
-        tvList.add(tv3);
-        tvList.add(tv4);
-        tvActuel = tvList.get(posList);
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_vocabulary_game, container, false);
         final Button buttonValidate = rootView.findViewById(R.id.button_validate);
-        viewReponse = rootView.findViewById(R.id.editText);
-        viewMot = rootView.findViewById(R.id.textView);
+        viewReponse = rootView.findViewById(R.id.EditText_player_answer);
+        viewMot = rootView.findViewById(R.id.TextView_word_tofind);
         initTuble(tvActuel);
         buttonValidate.setOnClickListener(new View.OnClickListener() {
 
@@ -58,7 +49,6 @@ public class Fragment_vocabulary_game extends Fragment {
             public void onClick(View v) {
                 if (buttonValidate.getText() == getResources().getString(R.string.validate)) {
                     buttonValidate.setText(getResources().getString(R.string.next));
-
                     verifieTuple(tvActuel);
                 } else {
                     buttonValidate.setText(getResources().getString(R.string.validate));
@@ -77,6 +67,7 @@ public class Fragment_vocabulary_game extends Fragment {
     }
 
     private void verifieTuple (TupleVocabulaire tv){
+
         if (tv.VerifieTuble(viewMot.getText().toString(),viewReponse.getText().toString())){
             viewReponse.setBackgroundColor(Color.GREEN);
         }else{

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -20,14 +21,15 @@ import android.widget.Toast;
 
 public class Fragment_vocabulary_addcards extends Fragment implements View.OnClickListener{
 
-    Button button_addCards;
+    private Button button_addCards;
+    private TextView text_traductionFR;
+    private TextView text_traductionEN;
 
-
-    OnHeadlineSelectedListener mCallback;
+    dataFragmentToContainer mCallback;
 
     // Container Activity must implement this interface for communicate with fragment
-    public interface OnHeadlineSelectedListener {
-        public void onArticleSelected(String traductionFR, String traductionEN);
+    public interface dataFragmentToContainer {
+        public void sendNewCard(String traductionFR, String traductionEN);
     }
 
     @Override
@@ -36,20 +38,17 @@ public class Fragment_vocabulary_addcards extends Fragment implements View.OnCli
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnHeadlineSelectedListener) context;
+            mCallback = (dataFragmentToContainer) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
+            throw new ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener");
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
         View v = inflater.inflate(R.layout.fragment_vocabulary_addcards, parent, false);
-        button_addCards =  v.findViewById(R.id.button_addCards);
-        button_addCards.setOnClickListener(this);
+
         return v;
     }
 
@@ -58,14 +57,25 @@ public class Fragment_vocabulary_addcards extends Fragment implements View.OnCli
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
-
+        button_addCards =  view.findViewById(R.id.button_addCards);
+        button_addCards.setOnClickListener(this);
+        text_traductionFR = view.findViewById(R.id.EditText_word_FR);
+        text_traductionFR.setOnClickListener(this);
+        text_traductionEN = view.findViewById(R.id.EditText_word_EN);
+        text_traductionEN.setOnClickListener(this);
     }
 
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.button_addCards:
                 Log.d("click: ", "IN CLICKEC Button_addCards");
-                mCallback.onArticleSelected("chat","cat");
+                mCallback.sendNewCard(text_traductionFR.getText().toString(),text_traductionEN.getText().toString());
+                break;
+            case R.id.EditText_word_FR:
+                Log.d("click: ", "IN CLICKEC EditText_word_FR");
+                break;
+            case R.id.EditText_word_EN:
+                Log.d("click: ", "IN CLICKEC EditText_word_EN");
                 break;
         }
     }

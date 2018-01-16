@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_TRADUCTION = "carte_de_traduction";    // Contacts table name
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
-    private static final String KEY_FR = "name";
-    private static final String KEY_EN = "phone_number";
+    private static final String KEY_FR = "traduction_francaise";
+    private static final String KEY_EN = "traduction_anglaise";
+    private static final String KEY_SCORE = "score";
+
+    // Use in order to select the language of research card in database
+    public enum Langue{FR,EN}
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_TRADUCTION + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + KEY_FR + " TEXT,"
-                + KEY_EN + " TEXT" + ")";
+                + KEY_EN + " TEXT," + KEY_SCORE + " INTEGER"  + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -58,27 +63,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_FR, cv.getTraductionFR());
         values.put(KEY_EN, cv.getTraductionEN());
-
+        values.put(KEY_SCORE, cv.getScore());
         // Inserting Row
         db.insert(TABLE_TRADUCTION, null, values);
 
-        //String Query = "INSERT INTO " + TABLE_TRADUCTION +"("+KEY_FR+","+KEY_EN + ")"+ " VALUES ('" + cv.getTraductionFR()+"','" + cv.getTraductionEN() + "')";
-        //db.execSQL(Query);
         db.close(); // Closing database connection
     }
 
     // Getting single Card
-    CarteVocabulaire getCard(int id) {
+    CarteVocabulaire getCard_byID(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_TRADUCTION, new String[] { KEY_ID, KEY_FR, KEY_EN }, KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
+        Cursor cursor = db.query(TABLE_TRADUCTION, new String[] { KEY_ID, KEY_FR, KEY_EN, KEY_SCORE }, KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null) {
             cursor.moveToFirst();
-
-        CarteVocabulaire cv = new CarteVocabulaire(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
-        // return Card
-        return cv;
+            CarteVocabulaire cv = new CarteVocabulaire(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)));
+            return cv;
+        }else{
+            return null;
+        }
     }
+
+    // Cette fonction n'est pas encore operationel, elle fonctionne mais elle peut planter
+    CarteVocabulaire getCard_byFR(String traductionFR){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TRADUCTION, new String[] { KEY_ID, KEY_FR, KEY_EN, KEY_SCORE}, KEY_FR + "=?", new String[] { traductionFR }, null, null, null, null);
+        if (cursor != null) {
+            Log.e("getCard_byFR ", String.valueOf(cursor.getCount()));
+            return new CarteVocabulaire(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2),Integer.parseInt(cursor.getString(3)));
+        }else{
+            Log.e("getCard_byFR ", "NULLLL");
+            return null;
+        }
+    }
+
+    int isCard_inDataBase(String traductionFR, Langue langue  ){
+
+        String KEY = "";
+        if(langue == Langue.FR){KEY = KEY_FR;}
+        else if(langue == Langue.EN){KEY = KEY_EN;}
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TRADUCTION, new String[] { KEY_ID, KEY_FR, KEY_EN, KEY_SCORE }, KEY + "=?", new String[] { traductionFR }, null, null, null, null);
+        if (cursor != null) {
+            if(cursor.getCount() > 0){
+                return cursor.getCount();
+            }else{
+                return cursor.getCount();
+            }
+        }else{
+            return -1;
+        }
+    }
+
+
 
     // Getting All Card
     public ArrayList<CarteVocabulaire> getAllCard() {
@@ -96,6 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cv.setID(Integer.parseInt(cursor.getString(0)));
                 cv.setTraductionFR(cursor.getString(1));
                 cv.setTraductionEN(cursor.getString(2));
+                cv.setScore(Integer.parseInt(cursor.getString(3)));
                 // Adding contact to list
                 CarteVocabulaireList.add(cv);
             } while (cursor.moveToNext());
@@ -112,6 +152,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_FR, Carte.getTraductionFR());
         values.put(KEY_EN, Carte.getTraductionEN());
+        values.put(KEY_SCORE, Carte.getScore());
 
         // updating row
         return db.update(TABLE_TRADUCTION, values, KEY_ID + " = ?", new String[] { String.valueOf(Carte.getID()) });

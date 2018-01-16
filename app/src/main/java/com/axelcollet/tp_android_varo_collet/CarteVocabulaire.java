@@ -13,9 +13,16 @@ public class CarteVocabulaire implements Parcelable {
     int id;
     String traductionFR;
     String traductionEN;
+    int score = 0;
 
     public CarteVocabulaire(){}
 
+    public CarteVocabulaire(int id, String traductionFR, String traductionEN, int score){
+        this.id = id;
+        this.traductionFR = traductionFR;
+        this.traductionEN = traductionEN;
+        this.score = score;
+    }
     public CarteVocabulaire(int id, String traductionFR, String traductionEN){
         this.id = id;
         this.traductionFR = traductionFR;
@@ -27,6 +34,12 @@ public class CarteVocabulaire implements Parcelable {
         this.traductionEN = traductionEN;
     }
 
+    public CarteVocabulaire(String traductionFR, String traductionEN, int score){
+        this.traductionFR = traductionFR;
+        this.traductionEN = traductionEN;
+        this.score = score;
+    }
+
     public int getID(){return this.id;}
     public void setID(int id){ this.id = id;}
 
@@ -36,8 +49,12 @@ public class CarteVocabulaire implements Parcelable {
     public String getTraductionEN(){return this.traductionEN;}
     public void setTraductionEN(String traductionEN){this.traductionEN = traductionEN;}
 
-    //Parcable part
+    public int getScore(){return this.score;}
+    public void setScore(int score){this.score = score;}
 
+    //################################################
+    //###############Parcable part
+    //################################################
     @Override
     public int describeContents()
     {
@@ -49,6 +66,7 @@ public class CarteVocabulaire implements Parcelable {
         dest.writeInt(id);
         dest.writeString(traductionFR);
         dest.writeString(traductionEN);
+        dest.writeInt(score);
 
     }
 
@@ -56,6 +74,7 @@ public class CarteVocabulaire implements Parcelable {
         this.id = in.readInt();
         this.traductionFR = in.readString();
         this.traductionEN = in.readString();
+        this.score = in.readInt();
     }
 
     public static final Creator<CarteVocabulaire> CREATOR = new Creator<CarteVocabulaire>()

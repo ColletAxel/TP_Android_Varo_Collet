@@ -7,7 +7,7 @@
     tools:context="com.axelcollet.tp_android_varo_collet.MainActivity">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fragment_fragment_voc"
+        android:id="@+id/fragment_main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

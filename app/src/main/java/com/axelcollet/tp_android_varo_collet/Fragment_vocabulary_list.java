@@ -21,7 +21,7 @@ public class Fragment_vocabulary_list extends Fragment {
 
     private ArrayList<CarteVocabulaire> listCards;
     private RecyclerView recyclerView;
-    private MyAdapter adapterSongList = new MyAdapter(listCards);
+    private MyAdapter adapterListCards = new MyAdapter(listCards);
 
     public static Fragment_vocabulary_list newInstance(ArrayList<CarteVocabulaire> param) {
 
@@ -36,16 +36,14 @@ public class Fragment_vocabulary_list extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         // Defines the xml file for the fragment
         View v = inflater.inflate(R.layout.fragment_vocabulary_list, parent, false);
+        // recuperation des arguments passe au fragment
         getBundleArguments(getArguments());
-        Log.d("SIZE LIST: ", Integer.toString(listCards.size()));
-
+        // mise en place du recyclerView avec sa list et son adapter
         recyclerView = v.findViewById(R.id.listRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapterSongList);
+        recyclerView.setAdapter(adapterListCards);
         MyAdapter mAdapter = new MyAdapter(listCards);
-        // 4. set adapter
         recyclerView.setAdapter(mAdapter);
-        // 5. set item animator to DefaultAnimator
 
         return v;
     }
@@ -56,12 +54,6 @@ public class Fragment_vocabulary_list extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
 
-         // Get Arugments given to fragment
-        for (CarteVocabulaire cn : listCards) {
-            String log = "Id: "+cn.getID()+" ,Francais: " + cn.getTraductionFR() + " ,English: " + cn.getTraductionEN();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
     }
 
     private void getBundleArguments(Bundle bundle) {

@@ -1,72 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.axelcollet.tp_android_varo_collet.MainActivity">
 
-    <LinearLayout
-        android:layout_width="0dp"
+
+    <TextView
+        android:id="@+id/TextView_word_tofind"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.49">
+        android:layout_weight="0.50"
+        android:background="@color/colorPrimary"
+        android:text="mot de base"
+        android:gravity="center"
+        android:textSize="23dp"/>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="209dp"
-            android:layout_weight="0.01"
-            android:background="@color/colorPrimaryDark"
-            android:text="\n\n\n Temp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.107" />
+    <EditText
+        android:id="@+id/EditText_player_answer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.40"
+        android:background="@color/colorAccent"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:theme="@style/AppTheme" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.08"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:inputType="text"
-            android:textAlignment="center"
-            android:textStyle="italic"
-            android:theme="@style/AppTheme" />
+    <Button
+        android:id="@+id/button_validate"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="203dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.1"
+        android:background="@drawable/button_rounded"
+        android:text="@string/validate"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_validate"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_green_light"
-                android:text="@string/validate" />
-
-            <Button
-                android:id="@+id/button3"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_orange_light"
-                android:text="@string/menu" />
-        </LinearLayout>
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
