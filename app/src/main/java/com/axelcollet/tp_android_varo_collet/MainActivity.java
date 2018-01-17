@@ -15,7 +15,7 @@ import java.util.List;
 
 
 // If you want you can add other log definition for info, warning etc
-public class MainActivity extends FragmentActivity implements Fragment_vocabulary_addcards.dataFragmentToContainer{
+public class MainActivity extends FragmentActivity implements Fragment_vocabulary_addcards.dataFragmentToContainer, Fragment_vocabulary_game2.dataFragmentGameToContainer{
 
     private ListView mDrawerList;
     private DatabaseHandler db;
@@ -45,6 +45,10 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
         // The user selected the headline of an article from the HeadlinesFragment
         // Do something here to display that article
         db.addCard(new CarteVocabulaire(traductionFR,traductionEN));
+    }
+
+    public void updateCardScore(int id, int score){
+        db.updateCardScore(id,score);
     }
 
     /*Initialisation du drawer. use for navigate within different fragment of activity*/
@@ -80,9 +84,4 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
 
 
 }
-// TODO: 15.11.2017 faire classe carton
-// TODO: 15.11.2017 faire classe qui contient plusieurs carton genre une liste des ids
-// TODO: 15.11.2017 faire activity menu
-// TODO: 15.11.2017 passer la liste de carton choisi dans le menu a cette activité
-// TODO: 15.11.2017 renomer cette activité ?!?
-// TODO: 15.11.2017  stats réussite / echec d'un carton
+

@@ -64,11 +64,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_FR, cv.getTraductionFR());
         values.put(KEY_EN, cv.getTraductionEN());
         values.put(KEY_SCORE, cv.getScore());
-        // Inserting Row
-        db.insert(TABLE_TRADUCTION, null, values);
-
-        db.close(); // Closing database connection
+        db.insert(TABLE_TRADUCTION, null, values);  // Inserting Row
+        db.close();                                              // Closing database connection
     }
+
+    void updateCardScore(int id, int score){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_SCORE,score);
+        db.update(TABLE_TRADUCTION, newValues,KEY_ID + "=?" ,new String[] { String.valueOf(id) });
+
+        Log.e("updateCardScore ", "Fonction updateCardScore executer");
+
+    }
+
 
     // Getting single Card
     CarteVocabulaire getCard_byID(int id) {

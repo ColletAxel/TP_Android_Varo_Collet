@@ -1,5 +1,6 @@
 package com.axelcollet.tp_android_varo_collet;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
     private int Right_answer = 0;
     private int Total_answer = 0;
 
+    dataFragmentGameToContainer mCallback;
+
 
     public static Fragment_vocabulary_game2 newInstance(ArrayList<CarteVocabulaire> param) {
 
@@ -43,6 +46,23 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
         args.putParcelableArrayList("param_1",param);
         myFragment.setArguments(args);
         return myFragment;
+    }
+
+    // Container Activity must implement this interface for communicate with fragment
+    public interface dataFragmentGameToContainer {
+        public void updateCardScore(int id, int score);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (dataFragmentGameToContainer) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
@@ -92,10 +112,27 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                 if(state == gameState.PLAYING){
                     if(current_card_to_find.getTraductionFR().equalsIgnoreCase(player_answer.getText().toString())){
                         Right_answer++;
+                        int new_card_score = current_card_to_find.getScore();
+                        if(new_card_score > 9){
+                            new_card_score = 10;
+                        }else{
+                            new_card_score += 1;
+                        }
+                        listCards.get(current_index_word).setScore(new_card_score);
+                        mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
                         button_validate.getBackground().setColorFilter(Color.parseColor("#00FF00"), PorterDuff.Mode.SRC_ATOP);
                     }else{
+                        int new_card_score = current_card_to_find.getScore();
+                        if(new_card_score < -9){
+                            new_card_score = -10;
+                        }else{
+                            new_card_score -= 1;
+                        }
+                        listCards.get(current_index_word).setScore(new_card_score);
+                        mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
                         button_validate.getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
                     }
+
                     Total_answer++;
                     state = gameState.NEXT_CARD;
                     button_validate.setText("continue");
