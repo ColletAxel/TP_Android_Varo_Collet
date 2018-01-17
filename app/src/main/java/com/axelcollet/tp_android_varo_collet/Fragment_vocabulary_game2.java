@@ -1,5 +1,6 @@
 package com.axelcollet.tp_android_varo_collet;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -9,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,6 +32,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
 
     private EditText player_answer;
     private TextView word_to_find;
+    private ProgressBar progress_bar_game;
 
 
     private gameState state = gameState.PLAYING;
@@ -81,6 +86,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
         button_validate.setOnClickListener(this);
         player_answer = view.findViewById(R.id.EditText_player_answer);
         word_to_find = view.findViewById(R.id.TextView_word_tofind);
+        progress_bar_game = view.findViewById(R.id.ProgressBarGame);
 
         getBundleArguments(getArguments());
         state = gameState.PLAYING;
@@ -134,6 +140,10 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                     }
 
                     Total_answer++;
+                    progress_bar_game.setMax(Total_answer);
+                    progress_bar_game.setProgress(Right_answer);
+
+                    //progress_bar_game.setProgress(Right_answer);
                     state = gameState.NEXT_CARD;
                     button_validate.setText("continue");
 
