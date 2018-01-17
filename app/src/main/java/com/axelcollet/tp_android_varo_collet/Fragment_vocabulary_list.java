@@ -21,7 +21,7 @@ public class Fragment_vocabulary_list extends Fragment {
 
     private ArrayList<CarteVocabulaire> listCards;
     private RecyclerView recyclerView;
-    private MyAdapter adapterListCards = new MyAdapter(listCards);
+    private MyAdapter adapterListCards;
 
     public static Fragment_vocabulary_list newInstance(ArrayList<CarteVocabulaire> param) {
 
@@ -42,8 +42,9 @@ public class Fragment_vocabulary_list extends Fragment {
         recyclerView = v.findViewById(R.id.listRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapterListCards);
-        MyAdapter mAdapter = new MyAdapter(listCards);
+        MyAdapter mAdapter = new MyAdapter(getActivity(),listCards);
         recyclerView.setAdapter(mAdapter);
+
 
         return v;
     }

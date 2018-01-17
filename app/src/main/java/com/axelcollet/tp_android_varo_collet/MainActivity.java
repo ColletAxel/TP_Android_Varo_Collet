@@ -48,6 +48,10 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
         db.updateCardScore(id,score);
     }
 
+    public void deleteCard(int id){
+        db.deleteCard(id);
+    }
+
     /*Initialisation du drawer. use for navigate within different fragment of activity*/
     private void init_drawer(){
         mDrawerList = (ListView) findViewById(R.id.my_drawer);
@@ -63,6 +67,7 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
                     ft.replace(R.id.fragment_main_activity,Fragment_vocabulary_game2.newInstance(db.getAllCard()));
                     ft.commit();
                 }
+                
                 if(id == 1){
                     ArrayList<CarteVocabulaire> listCards = db.getAllCard();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

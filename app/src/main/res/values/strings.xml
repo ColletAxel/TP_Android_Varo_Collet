@@ -7,6 +7,6 @@
     <string name="answer">Answer</string>
     <string name="menu">Menu</string>
     <string name="Name_Menu1">Entrainement</string>
-    <string name="Name_Menu2">Tous mes most</string>
+    <string name="Name_Menu2">Tous mes mots</string>
     <string name="Name_Menu3">Nouveaux mots</string>
 </resources>
