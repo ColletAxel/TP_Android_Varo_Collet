@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.graphics.Paint;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,7 +30,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
 
     private Button button_validate;
     private ArrayList<CarteVocabulaire> listCards;
-    private enum gameState{PLAYING,NEXT_CARD}
+    private enum gameState{PLAYING,NEXT_CARD,UNPLAYABLE}
 
     private EditText player_answer;
     private TextView word_to_find;
@@ -91,25 +92,31 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
         progress_bar_game = view.findViewById(R.id.ProgressBarGame);
 
         getBundleArguments(getArguments());
-        state = gameState.PLAYING;
         setCardToFind();
+
     }
 
     private void getBundleArguments(Bundle bundle) {
         if (bundle != null) {
             listCards = bundle.getParcelableArrayList("param_1");
+            state = gameState.PLAYING;
+            Log.e("getBundleArguments ", String.valueOf(listCards.size()));
         }else {
             Log.e("Name: ", "Error listCard NULL");
+            state = gameState.UNPLAYABLE;
         }
     }
 
     private void setCardToFind(){
         if(!listCards.isEmpty()){
+            Log.e("setCardTofind ", String.valueOf(listCards.size()));
             current_index_word = new Random().nextInt(listCards.size());
             current_card_to_find = listCards.get(current_index_word);
             word_to_find.setText(current_card_to_find.getTraductionEN());
+            state = gameState.PLAYING;
         }else{
             Log.e("list state ", "EMPTY LIST");
+            state = gameState.UNPLAYABLE;
         }
     }
 
@@ -141,7 +148,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                             new_card_score -= 1;
                         }
                         player_answer.setPaintFlags(player_answer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        word_to_find.append("\n Reponse : " + current_card_to_find.getTraductionFR());
+                        word_to_find.append("\n Réponse : " + current_card_to_find.getTraductionFR());
                         listCards.get(current_index_word).setScore(new_card_score);
                         mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
                         button_validate.getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
@@ -159,6 +166,8 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                     button_validate.setText(R.string.button_game_validation);
                     button_validate.getBackground().setColorFilter(Color.parseColor("#DDDDDD"), PorterDuff.Mode.SRC_ATOP); // set color filterter
                     setCardToFind();
+                }else if(state == gameState.UNPLAYABLE){
+                    Toast.makeText(getActivity(), "Vous n’avez aucun mots d’enregistré ", Toast.LENGTH_LONG).show();
                 }
                 break;
         }

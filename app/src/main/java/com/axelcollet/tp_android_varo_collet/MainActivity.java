@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
                     ft.replace(R.id.fragment_main_activity,Fragment_vocabulary_game2.newInstance(db.getAllCard()));
                     ft.commit();
                 }
-                
+
                 if(id == 1){
                     ArrayList<CarteVocabulaire> listCards = db.getAllCard();
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
