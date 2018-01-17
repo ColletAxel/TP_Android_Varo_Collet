@@ -117,7 +117,11 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
         switch (v.getId()) {
             case R.id.button_validate:
                 Log.d("click: ", "IN CLICKEC Button_addCards");
+
                 if(state == gameState.PLAYING){
+                    Total_answer++;
+                    progress_bar_game.setMax(Total_answer);     // Mise à jours de la barre de score
+                    progress_bar_game.setSecondaryProgress(Total_answer);
                     if(current_card_to_find.getTraductionFR().equalsIgnoreCase(player_answer.getText().toString())){
                         Right_answer++;
                         int new_card_score = current_card_to_find.getScore();
@@ -143,8 +147,6 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                         button_validate.getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
                     }
 
-                    Total_answer++;
-                    progress_bar_game.setMax(Total_answer);     // Mise à jours de la barre de score
                     progress_bar_game.setProgress(Right_answer);// Mise à jours de la barre de score
 
                     state = gameState.NEXT_CARD;
@@ -152,6 +154,8 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
 
                 }else if(state == gameState.NEXT_CARD){
                     state = gameState.PLAYING;
+                    player_answer.setPaintFlags(0);
+                    player_answer.setText("");
                     button_validate.setText(R.string.button_game_validation);
                     button_validate.getBackground().setColorFilter(Color.parseColor("#DDDDDD"), PorterDuff.Mode.SRC_ATOP); // set color filterter
                     setCardToFind();

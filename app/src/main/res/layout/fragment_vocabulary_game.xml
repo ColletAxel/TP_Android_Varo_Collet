@@ -19,6 +19,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.03"
         android:progress="0"
+        android:secondaryProgress="0"
         android:progressDrawable="@drawable/progress_bar_game" />
 
     <TextView

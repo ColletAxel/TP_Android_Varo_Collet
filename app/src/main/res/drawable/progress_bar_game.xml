@@ -14,14 +14,25 @@
         </shape>
     </item>
 
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="30dp" />
+                <gradient
+                    android:startColor="@color/colorRouge"
+                    android:centerColor="@color/colorRouge"
+                    android:centerY="0.75"
+                    android:endColor="@color/colorRouge"
+                    android:angle="270" />
+            </shape>
+        </clip>
+    </item>
 
 
     <!-- Define the progress properties like start color, end color etc -->
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <padding android:top="10dp"/>
-                <padding android:bottom="10dp"/>
                 <corners android:radius="30dp" />
                 <gradient
                     android:startColor="@color/colorGreen"
@@ -29,7 +40,6 @@
                     android:centerY="1.0"
                     android:endColor="@color/colorGreen_3"
                     android:angle="180"
-
                     />
             </shape>
         </clip>

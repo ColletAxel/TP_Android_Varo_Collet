@@ -20,8 +20,6 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
     private ListView mDrawerList;
     private DatabaseHandler db;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +28,12 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
         init_drawer();
 
         db = new DatabaseHandler(this);
-        db.addCard(new CarteVocabulaire("bonjour","hello"));
-        db.addCard(new CarteVocabulaire("aurevoir","goodbye"));
+
         Log.e("list state ", String.valueOf(db.isCard_inDataBase("bonjour",DatabaseHandler.Langue.EN)));
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        ft.add(R.id.fragment_main_activity,Fragment_vocabulary_game2.newInstance(db.getAllCard()));
+        ft.add(R.id.fragment_main_activity,new Fragment_vocabulary_addcards());
         // Complete the changes added above
         ft.commit();
     }
@@ -80,7 +77,5 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
             }
         });
     }
-
-
 }
 
