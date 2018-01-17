@@ -70,6 +70,8 @@ public class Fragment_vocabulary_addcards extends Fragment implements View.OnCli
             case R.id.button_addCards:
                 Log.d("click: ", "IN CLICKEC Button_addCards");
                 mCallback.sendNewCard(text_traductionFR.getText().toString(),text_traductionEN.getText().toString());
+                text_traductionEN.setText("");
+                text_traductionFR.setText("");
                 break;
             case R.id.EditText_word_FR:
                 Log.d("click: ", "IN CLICKEC EditText_word_FR");

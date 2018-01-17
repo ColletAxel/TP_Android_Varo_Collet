@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.graphics.Paint;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -86,6 +87,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
         button_validate.setOnClickListener(this);
         player_answer = view.findViewById(R.id.EditText_player_answer);
         word_to_find = view.findViewById(R.id.TextView_word_tofind);
+
         progress_bar_game = view.findViewById(R.id.ProgressBarGame);
 
         getBundleArguments(getArguments());
@@ -134,23 +136,23 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                         }else{
                             new_card_score -= 1;
                         }
+                        player_answer.setPaintFlags(player_answer.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        word_to_find.append("\n Reponse : " + current_card_to_find.getTraductionFR());
                         listCards.get(current_index_word).setScore(new_card_score);
                         mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
                         button_validate.getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
                     }
 
                     Total_answer++;
-                    progress_bar_game.setMax(Total_answer);
-                    progress_bar_game.setProgress(Right_answer);
+                    progress_bar_game.setMax(Total_answer);     // Mise à jours de la barre de score
+                    progress_bar_game.setProgress(Right_answer);// Mise à jours de la barre de score
 
-                    //progress_bar_game.setProgress(Right_answer);
                     state = gameState.NEXT_CARD;
-                    button_validate.setText("continue");
+                    button_validate.setText(getString(R.string.button_game_continue));
 
                 }else if(state == gameState.NEXT_CARD){
                     state = gameState.PLAYING;
-                    button_validate.setText("validate");
-
+                    button_validate.setText(R.string.button_game_validation);
                     button_validate.getBackground().setColorFilter(Color.parseColor("#DDDDDD"), PorterDuff.Mode.SRC_ATOP); // set color filterter
                     setCardToFind();
                 }

@@ -54,8 +54,7 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
     /*Initialisation du drawer. use for navigate within different fragment of activity*/
     private void init_drawer(){
         mDrawerList = (ListView) findViewById(R.id.my_drawer);
-        String[] osArray = { "Fragment1", "Fragment2", "Fragment3", "Fragment4", "Fragment5" };
-        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{getString(R.string.Name_Menu1), getString(R.string.Name_Menu2), getString(R.string.Name_Menu3)});
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -51,7 +51,7 @@
         android:layout_gravity="center"
 
         android:background="@drawable/button_rounded"
-        android:text="@string/validate"
+        android:text="@string/button_game_validation"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"/>
 

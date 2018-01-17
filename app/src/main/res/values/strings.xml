@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Voc\nIBiling</string>
-    <string name="validate">Validate</string>
+    <string name="button_game_validation">Valider</string>
+    <string name="button_game_continue">Continuer</string>
+    <string name="button_addcards_ajouter">Ajouter</string>
     <string name="next">Next</string>
     <string name="answer">Answer</string>
     <string name="menu">Menu</string>
+    <string name="Name_Menu1">Entrainement</string>
+    <string name="Name_Menu2">Tous mes most</string>
+    <string name="Name_Menu3">Nouveaux mots</string>
 </resources>
