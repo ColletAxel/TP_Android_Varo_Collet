@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements Fragment_vocabular
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "position = " + String.valueOf(position) + "/ id = " + String.valueOf(id), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "position = " + String.valueOf(position) + "/ id = " + String.valueOf(id), Toast.LENGTH_SHORT).show();
                 if(id == 0){
 
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();

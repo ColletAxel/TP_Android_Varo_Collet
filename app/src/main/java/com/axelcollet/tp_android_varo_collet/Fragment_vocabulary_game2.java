@@ -139,7 +139,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                         }
                         listCards.get(current_index_word).setScore(new_card_score);
                         mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
-                        button_validate.getBackground().setColorFilter(Color.parseColor("#00FF00"), PorterDuff.Mode.SRC_ATOP);
+                        button_validate.getBackground().setColorFilter(Color.parseColor("#007700"), PorterDuff.Mode.SRC_ATOP);
                     }else{
                         int new_card_score = current_card_to_find.getScore();
                         if(new_card_score < -9){
@@ -151,7 +151,7 @@ public class Fragment_vocabulary_game2 extends Fragment implements View.OnClickL
                         word_to_find.append("\n Réponse : " + current_card_to_find.getTraductionFR());
                         listCards.get(current_index_word).setScore(new_card_score);
                         mCallback.updateCardScore(current_card_to_find.getID(),new_card_score);
-                        button_validate.getBackground().setColorFilter(Color.parseColor("#FF0000"), PorterDuff.Mode.SRC_ATOP);
+                        button_validate.getBackground().setColorFilter(Color.parseColor("#FF4070"), PorterDuff.Mode.SRC_ATOP);
                     }
 
                     progress_bar_game.setProgress(Right_answer);// Mise à jours de la barre de score

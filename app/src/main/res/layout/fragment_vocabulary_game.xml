@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.32"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorWhite"
         android:text="mot de base"
         android:gravity="center"
         android:textSize="23dp"/>
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.55"
-        android:background="@color/colorAccent"
+        android:background="@color/colorWhite"
         android:inputType="text"
         android:textAlignment="center"
         android:textStyle="italic"
